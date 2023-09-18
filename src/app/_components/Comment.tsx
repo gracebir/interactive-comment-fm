@@ -1,17 +1,11 @@
 'use client'
+import { commentProps } from '@/util/type'
+import { lowerFirstChar } from '@/util/utils'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { FaReply, FaMinus, FaPlus } from "react-icons/fa"
 
-type commentProps = {
-  username: string
-  avatar: string
-  createAt: string
-  score: number
-  content: string
-}
-
-const Comment = ({ username, avatar, createAt, score, content }: commentProps) => {
+const Comment = ({ username, avatar, createAt, score, content, isReply=false, replyingTo }: commentProps) => {
   const [scoreValue, setScoreValue] = useState(score)
   return (
     <div className='bg-off-white p-7 lg:p-12 rounded-md grid grid-cols-1 lg:grid-cols-9 gap-4 lg:gap-6'>
@@ -27,7 +21,13 @@ const Comment = ({ username, avatar, createAt, score, content }: commentProps) =
             Reply
           </button>
         </div>
-        <p className="text-grayish-blue text-base lg:text-[1.4rem] leading-7 lg:leading-8">{content}</p>
+        {isReply ? (
+          <p className="text-grayish-blue text-base lg:text-[1.4rem] leading-7 lg:leading-8">
+          <span className='text-blue font-medium'>@{replyingTo}</span>&nbsp;{lowerFirstChar(content)}
+          </p>
+        ):(
+          <p className="text-grayish-blue text-base lg:text-[1.4rem] leading-7 lg:leading-8">{content}</p>
+        )}
       </div>
       <div className='flex justify-between col-span-1 order-2 lg:order-1'>
         <div
