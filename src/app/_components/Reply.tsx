@@ -5,7 +5,7 @@ import Comment from './Comment'
 const Reply = ({ replies }: ReplyResponseProps) => {
 
   return (
-    <div className='flex flex-row gap-6 lg:gap-16 ml-6 lg:ml-16'>
+    <div className='flex flex-row gap-4 lg:gap-16 ml-0 lg:ml-16'>
       <div className='border border-gray-300'/>
       <div className=' flex flex-col gap-6'>
         {replies.map((replie) => (
