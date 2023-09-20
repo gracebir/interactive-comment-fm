@@ -43,3 +43,29 @@ export type ReplyProps = {
 export type ReplyResponseProps = {
     replies: Array<ReplyProps>
 }
+
+export type DataType = {
+    currentUser: {
+        image: {
+            png: string,
+            webp: string
+        },
+        username: string
+    },
+    comments: [
+        {
+            id: number,
+            content: string,
+            createdAt: string,
+            score: number,
+            user: {
+                image: {
+                    png: string,
+                    webp: string
+                },
+                username: string
+            },
+            replies: Array<ReplyProps>
+        }
+    ]
+}
