@@ -9,7 +9,11 @@ export type TextFieldProps = {
 
 export type FormProps = {
    isAdd: boolean
-   idComment?: number
+}
+
+export type EditFormProp = {
+    value: string
+    id: number
 }
 
 export type commentProps = {
@@ -19,8 +23,6 @@ export type commentProps = {
     createAt: string
     score: number
     content: string
-    replyingTo?: string
-    isReply?: boolean
 }
 
 export type ReplyProps = {
