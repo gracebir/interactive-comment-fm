@@ -1,11 +1,10 @@
 'use client'
 import { commentProps } from '@/util/type'
-import { lowerFirstChar } from '@/util/utils'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { FaReply, FaMinus, FaPlus } from "react-icons/fa"
 
-const Comment = ({ username, avatar, createAt, score, content, isReply=false, replyingTo }: commentProps) => {
+const Comment = ({ username, avatar, createAt, score, content }: commentProps) => {
   const [scoreValue, setScoreValue] = useState(score)
   return (
     <div className='bg-off-white p-7 lg:p-12 rounded-md grid grid-cols-1 lg:grid-cols-9 gap-4 lg:gap-6'>
@@ -21,28 +20,22 @@ const Comment = ({ username, avatar, createAt, score, content, isReply=false, re
             Reply
           </button>
         </div>
-        {isReply ? (
-          <p className="text-grayish-blue text-base lg:text-[1.4rem] leading-7 lg:leading-8">
-          <span className='text-blue font-medium'>@{replyingTo}</span>&nbsp;{lowerFirstChar(content)}
-          </p>
-        ):(
-          <p className="text-grayish-blue text-base lg:text-[1.4rem] leading-7 lg:leading-8">{content}</p>
-        )}
+        <p className="text-grayish-blue text-base lg:text-[1.4rem] leading-7 lg:leading-8">{content}</p>
       </div>
       <div className='flex justify-between col-span-1 order-2 lg:order-1'>
         <div
           className='flex flex-row items-center px-6 lg:px-5 space-x-4 rounded-md space-y-0 lg:flex-col lg:space-x-0 lg:space-y-4 p-4 bg-very-light-very'>
-          <button onClick={()=> setScoreValue(scoreValue + 1)} className='text-grayish hover:text-blue'><FaPlus /></button>
+          <button onClick={() => setScoreValue(scoreValue + 1)} className='text-grayish hover:text-blue'><FaPlus /></button>
           <span className='text-lg lg:text-xl font-medium text-blue'>{scoreValue}</span>
-          <button onClick={()=> {
-            if(scoreValue > 0){
+          <button onClick={() => {
+            if (scoreValue > 0) {
               setScoreValue(scoreValue - 1)
             }
           }} className='text-grayish text-xl hover:text-blue'><FaMinus /></button>
         </div>
         <button className='flex lg:hidden items-center gap-2 text-blue font-medium text-base lg:text-lg'>
-            <FaReply size={15} />
-            Reply
+          <FaReply size={15} />
+          Reply
         </button>
       </div>
     </div>
