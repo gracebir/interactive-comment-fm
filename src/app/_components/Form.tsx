@@ -6,7 +6,7 @@ import { useFormik } from 'formik'
 import Image from 'next/image'
 import Button from './elements/Button'
 
-const Form = ({ isAdd, idComment }: FormProps) => {
+const Form = ({ isAdd }: FormProps) => {
     const { handleChange, errors, handleBlur, values, handleSubmit } = useFormik({
         initialValues: {
             comment: ''
