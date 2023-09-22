@@ -69,3 +69,12 @@ export type DataType = {
         }
     ]
 }
+
+export type AppContextType = {
+    datas: DataType
+    setDatas: Dispatch<SetStateAction<DataType>>
+}
+
+export type CommentsType = {
+    data: DataType
+} 
