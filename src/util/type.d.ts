@@ -2,18 +2,19 @@ export type TextFieldProps = {
     name: string
     value: string
     errorMsg: string
-    onChange: (e: React.ChangeEvent<HTMLTextAreaElement> ) => void
+    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
     placeholder: string
     onBlur: (event: React.FocusEvent<HTMLTextAreaElement, Element>) => void
 }
 
 export type FormProps = {
-   isAdd: boolean
+    isAdd: boolean
 }
 
 export type EditFormProp = {
     value: string
     id: number
+    setIsOpen: Dispatch<SetStateAction<Boolean>>
 }
 
 export type commentProps = {
@@ -77,4 +78,38 @@ export type AppContextType = {
 
 export type CommentsType = {
     data: DataType
-} 
+}
+
+export type DataCommmentTypes = {
+    comments: [
+        {
+            id: number,
+            content: string,
+            createdAt: string,
+            score: number,
+            user: {
+                image: {
+                    png: string,
+                    webp: string
+                },
+                username: string
+            },
+            replies: Array<ReplyProps>
+        }
+    ]
+}
+
+export type CommentData = {
+    id: number,
+    content: string,
+    createdAt: string,
+    score: number,
+    user: {
+        image: {
+            png: string,
+            webp: string
+        },
+        username: string
+    },
+    replies: Array<ReplyProps>
+}
