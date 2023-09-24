@@ -1,24 +1,42 @@
-import { FormProps } from '@/util/type'
-import React from 'react'
+'use client'
+import { DataType, FormProps, NewCommentTypes, commentProps } from '@/util/type'
+import React, { useContext } from 'react'
 import data from '../../util/data.json'
 import TextField from './elements/TextField'
 import { useFormik } from 'formik'
 import Image from 'next/image'
 import Button from './elements/Button'
+import { AppContext } from '../_context/DataProvider'
 
 const Form = ({ isAdd }: FormProps) => {
-    const { handleChange, errors, handleBlur, values, handleSubmit } = useFormik({
+    const {datas, setDatas} = useContext(AppContext)
+    const { handleChange, errors, handleBlur,resetForm, values, handleSubmit } = useFormik({
         initialValues: {
             comment: ''
         },
         validateOnBlur: true,
         onSubmit: (value) => {
-            if(isAdd){
-                
-            } else {
-
-            }
+           let newComment:NewCommentTypes = {
+            id: (Math.floor(Math.random() * (1000 - 5 + 1)) + 6),
+            content: value.comment,
+            createdAt: "today",
+            score: 0,
+            user: {
+                image: datas.currentUser.image,
+                username: datas.currentUser.username
+            },
+            replies: []
+           }
+           setDatas({
+            currentUser: data.currentUser,
+            comments: [
+                ...datas.comments,
+                newComment
+            ] as Array<NewCommentTypes>
+           } as DataType)
+           resetForm()
         }
+        
     })
     return (
         <form onSubmit={handleSubmit} className=' flex flex-col gap-4 lg:flex-row p-7 lg:p-12 bg-off-white rounded-lg'>
