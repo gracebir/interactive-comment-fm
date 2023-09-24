@@ -1,6 +1,6 @@
 'use client'
-import { DataType, ReplyProps } from '@/util/type'
-import { deleteReply, lowerFirstChar } from '@/util/utils'
+import { ReplyProps } from '@/util/type'
+import { lowerFirstChar } from '@/util/utils'
 import Image from 'next/image'
 import React, { useContext, useState } from 'react'
 import { FaReply, FaMinus, FaPlus, FaTrash } from "react-icons/fa"
@@ -8,19 +8,15 @@ import { PiPencilSimpleFill } from "react-icons/pi"
 import UpdateButton from './elements/UpdateButton'
 import EditForm from './EditForm'
 import { AppContext } from '../_context/DataProvider'
+import ConfirmModal from './ConfirmModal'
 
 const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) => {
-  const {datas, setDatas} = useContext(AppContext);
+  const { datas } = useContext(AppContext);
+  const [openModal, setOpenModal] = useState(false)
   const currentUser = datas.currentUser.username
   const [isEdit, setIsEdit] = useState(false)
   const [scoreValue, setScoreValue] = useState(score)
-  const onDelete = () => {
-    const newComment = deleteReply(datas.comments, id)
-    setDatas({
-      currentUser: datas.currentUser,
-      comments: newComment
-    } as DataType)
-  }
+
   return (
     <div className='bg-off-white p-7 lg:p-12 rounded-md grid grid-cols-1 lg:grid-cols-9 gap-4 lg:gap-6'>
       <div className='flex flex-col order-1 lg:order-2 gap-4 lg:col-span-8 col-span-1'>
@@ -32,8 +28,8 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
           </div>
           {currentUser === user.username ? (
             <div className='hidden lg:flex gap-6 items-center'>
-              <UpdateButton className="text-red hover:text-palered" text='Detele' Icon={FaTrash} onClick={onDelete} />
-              <UpdateButton  className='text-blue hover:text-grayish' text='Edit' Icon={PiPencilSimpleFill} onClick={() => setIsEdit(!isEdit)} />
+              <UpdateButton className="text-red hover:text-palered" text='Detele' Icon={FaTrash} onClick={() => setOpenModal(true)} />
+              <UpdateButton className='text-blue hover:text-grayish' text='Edit' Icon={PiPencilSimpleFill} onClick={() => setIsEdit(!isEdit)} />
             </div>
           ) : (
             <button className='hidden lg:flex items-center gap-2 text-blue font-medium text-base lg:text-lg'>
@@ -43,7 +39,7 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
           )}
         </div>
         {isEdit ? (
-          <EditForm setIsOpen={setIsEdit} id={id} value={`@${replyingTo} ${lowerFirstChar(content)}`}/>
+          <EditForm setIsOpen={setIsEdit} id={id} value={`@${replyingTo} ${lowerFirstChar(content)}`} />
         ) : (
           <p className="text-grayish-blue text-base lg:text-[1.4rem] leading-7 lg:leading-8">
             <span className='text-blue font-medium'>@{replyingTo}</span>&nbsp;{lowerFirstChar(content)}
@@ -64,7 +60,7 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
         </div>
         {currentUser === user.username ? (
           <div className='flex lg:hidden gap-4 items-center'>
-            <UpdateButton className="text-red hover:text-palered" text='Detele' Icon={FaTrash} onClick={() => { }} />
+            <UpdateButton className="text-red hover:text-palered" text='Detele' Icon={FaTrash} onClick={() => setOpenModal(true)} />
             <UpdateButton className='text-blue hover:text-grayish' text='Edit' Icon={PiPencilSimpleFill} onClick={() => { }} />
           </div>
         ) : (
@@ -75,6 +71,7 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
         )}
 
       </div>
+      {openModal && (<ConfirmModal id={id} setModalOpen={setOpenModal} />)}
     </div >
   )
 }
