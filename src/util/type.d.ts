@@ -73,6 +73,21 @@ export type DataType = {
     ]
 }
 
+export type NewCommentTypes = {
+    id: number
+    content: string
+    createdAt: string
+    score: number
+    user: {
+        image: {
+            png: string
+            webp: string
+        }
+        username: string
+    },
+    replies: Array<ReplyProps>
+}
+
 export type AppContextType = {
     datas: DataType
     setDatas: Dispatch<SetStateAction<DataType>>
