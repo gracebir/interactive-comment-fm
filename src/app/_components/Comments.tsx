@@ -26,7 +26,7 @@ const Comments = ({data}: CommentsType) => {
           </div>
         ))}
         <div className=" mt-6">
-          <Form isAdd={false} />
+          <Form isAdd={true} />
         </div>
       </div>
   )
