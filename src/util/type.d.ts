@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export type TextFieldProps = {
     name: string
     value: string
@@ -14,7 +16,7 @@ export type FormProps = {
 export type EditFormProp = {
     value: string
     id: number
-    setIsOpen: Dispatch<SetStateAction<Boolean>>
+    setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
 export type commentProps = {
@@ -112,4 +114,9 @@ export type CommentData = {
         username: string
     },
     replies: Array<ReplyProps>
+}
+
+export type comfirmProps = {
+    id: number,
+    setModalOpen: Dispatch<SetStateAction<boolean>>
 }
