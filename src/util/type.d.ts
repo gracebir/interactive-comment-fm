@@ -16,7 +16,7 @@ export type FormProps = {
 export type EditFormProp = {
     value: string
     id: number
-    setIsOpen: Dispatch<SetStateAction<boolean>>
+    handleOnSubmit: (comment: string, id:number) => void
 }
 
 export type commentProps = {
