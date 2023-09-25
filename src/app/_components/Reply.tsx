@@ -1,6 +1,6 @@
 'use client'
 import { DataType, ReplyProps } from '@/util/type'
-import { deleteReply, lowerFirstChar } from '@/util/utils'
+import { deleteReply, lowerFirstChar, updateReply } from '@/util/utils'
 import Image from 'next/image'
 import React, { useContext, useState } from 'react'
 import { FaReply, FaMinus, FaPlus, FaTrash } from "react-icons/fa"
@@ -16,12 +16,23 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
   const currentUser = datas.currentUser.username
   const [isEdit, setIsEdit] = useState(false)
   const [scoreValue, setScoreValue] = useState(score)
+
   const onDelete = () => {
     const newComment = deleteReply(datas.comments, id)
     setDatas({
       currentUser: datas.currentUser,
       comments: newComment
     } as DataType)
+  }
+
+  const onUpdate = (comment: string, id:number) => {
+    console.log("commment reply", id)
+    const newsComment = updateReply(datas.comments, comment, id)
+    setDatas({
+     currentUser: datas.currentUser,
+     comments: newsComment
+    } as DataType)
+    setIsEdit(false)
   }
 
   return (
@@ -46,7 +57,7 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
           )}
         </div>
         {isEdit ? (
-          <EditForm setIsOpen={setIsEdit} id={id} value={`@${replyingTo} ${lowerFirstChar(content)}`} />
+          <EditForm handleOnSubmit={onUpdate} id={id} value={`@${replyingTo} ${lowerFirstChar(content)}`} />
         ) : (
           <p className="text-grayish-blue text-base lg:text-[1.4rem] leading-7 lg:leading-8">
             <span className='text-blue font-medium'>@{replyingTo}</span>&nbsp;{lowerFirstChar(content)}
