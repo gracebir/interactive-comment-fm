@@ -1,6 +1,6 @@
 'use client'
-import { ReplyProps } from '@/util/type'
-import { lowerFirstChar } from '@/util/utils'
+import { DataType, ReplyProps } from '@/util/type'
+import { deleteReply, lowerFirstChar } from '@/util/utils'
 import Image from 'next/image'
 import React, { useContext, useState } from 'react'
 import { FaReply, FaMinus, FaPlus, FaTrash } from "react-icons/fa"
@@ -11,11 +11,18 @@ import { AppContext } from '../_context/DataProvider'
 import ConfirmModal from './ConfirmModal'
 
 const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) => {
-  const { datas } = useContext(AppContext);
+  const { datas, setDatas } = useContext(AppContext);
   const [openModal, setOpenModal] = useState(false)
   const currentUser = datas.currentUser.username
   const [isEdit, setIsEdit] = useState(false)
   const [scoreValue, setScoreValue] = useState(score)
+  const onDelete = () => {
+    const newComment = deleteReply(datas.comments, id)
+    setDatas({
+      currentUser: datas.currentUser,
+      comments: newComment
+    } as DataType)
+  }
 
   return (
     <div className='bg-off-white p-7 lg:p-12 rounded-md grid grid-cols-1 lg:grid-cols-9 gap-4 lg:gap-6'>
@@ -71,7 +78,7 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
         )}
 
       </div>
-      {openModal && (<ConfirmModal id={id} setModalOpen={setOpenModal} />)}
+      {openModal && (<ConfirmModal handleClick={onDelete} setModalOpen={setOpenModal} />)}
     </div >
   )
 }
