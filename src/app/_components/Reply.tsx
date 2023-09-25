@@ -79,7 +79,7 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
         {currentUser === user.username ? (
           <div className='flex lg:hidden gap-4 items-center'>
             <UpdateButton className="text-red hover:text-palered" text='Detele' Icon={FaTrash} onClick={() => setOpenModal(true)} />
-            <UpdateButton className='text-blue hover:text-grayish' text='Edit' Icon={PiPencilSimpleFill} onClick={() => { }} />
+            <UpdateButton className='text-blue hover:text-grayish' text='Edit' Icon={PiPencilSimpleFill} onClick={() => setIsEdit(!isEdit)} />
           </div>
         ) : (
           <button className='flex lg:hidden items-center gap-2 text-blue font-medium text-base lg:text-lg'>
