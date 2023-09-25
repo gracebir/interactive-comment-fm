@@ -16,6 +16,7 @@ const Comments = ({data}: CommentsType) => {
         {datas?.comments?.map((comment) => (
           <div key={comment.id} className="flex flex-col gap-6">
             <Comment
+              id={comment.id}
               username={comment.user.username}
               avatar={comment.user.image.png}
               score={comment.score}
