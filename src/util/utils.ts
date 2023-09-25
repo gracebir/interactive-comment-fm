@@ -33,3 +33,15 @@ export function deleteReply(arr: Array<CommentData>, id: number) {
     })
     return array
 }
+
+export function updateComment(arr: Array<CommentData>, content: string, id: number) {
+    const index = arr.findIndex(item => item.id === id)
+    arr[index].content = content
+    return arr.map((comment)=> comment)
+}
+
+export function deleteComment(arr: Array<CommentData>, id: number) {
+    const index = arr.findIndex(item => item.id === id)
+    delete arr[index]
+    return arr.map((comment)=> comment)
+}

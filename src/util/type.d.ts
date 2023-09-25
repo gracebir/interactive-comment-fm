@@ -20,7 +20,7 @@ export type EditFormProp = {
 }
 
 export type commentProps = {
-    id?: number
+    id: number
     username: string
     avatar: string
     createAt: string
