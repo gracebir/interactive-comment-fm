@@ -1,6 +1,6 @@
 'use client'
 import {  EditFormProp } from '@/util/type'
-import React, { useContext } from 'react'
+import React from 'react'
 import TextField from './elements/TextField'
 import { useFormik } from 'formik'
 import Button from './elements/Button'
@@ -12,7 +12,6 @@ const EditForm = ({value, id, handleOnSubmit}: EditFormProp) => {
         },
         validateOnBlur: true,
         onSubmit: (value) => {
-            console.log("submit")
           handleOnSubmit(value.comment, id)
         }
     })
