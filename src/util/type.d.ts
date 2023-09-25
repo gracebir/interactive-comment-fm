@@ -132,6 +132,6 @@ export type CommentData = {
 }
 
 export type comfirmProps = {
-    id: number,
     setModalOpen: Dispatch<SetStateAction<boolean>>
+    handleClick: () => void
 }
