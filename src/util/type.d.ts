@@ -137,6 +137,6 @@ export type comfirmProps = {
 }
 
 export type ReplyFormProps = {
-    handleOnSubmit: (content: string, id: number) => void,
     id: number
+    setIsReply: React.Dispatch<SetStateAction<boolean>>
 }
