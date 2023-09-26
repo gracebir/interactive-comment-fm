@@ -1,5 +1,5 @@
 'use client'
-import { DataType, commentProps } from '@/util/type'
+import { DataType, ReplyProps, commentProps } from '@/util/type'
 import Image from 'next/image'
 import { PiPencilSimpleFill } from "react-icons/pi"
 import React, { useContext, useState } from 'react'
@@ -35,24 +35,25 @@ const Comment = ({ username, avatar, createAt, score, content, id }: commentProp
     setIsEditForm(false)
   }
 
-  const addReply = (content: string, id: number) => {
-    const index = datas.comments.findIndex(item => item.id === id)
-    const idReply = (Math.floor(Math.random() * (1000 - 20 + 1)) + 20)
-    const newReply = {
-      id: idReply,
-      content: content,
-      createdAt: "now",
-      replyingTo: datas.comments[index].user.username,
-      score: 0,
-      user: {
-        image: {
-          png: "png url",
-          webp: "image url"
-        },
-        username: "current"
-      },
-    }
-  }
+  // const addReply = (content: string, id: number) => {
+  //   const index = datas.comments.findIndex(item => item.id === id)
+  //   const idReply = (Math.floor(Math.random() * (1000 - 20 + 1)) + 20)
+  //   const newReply:ReplyProps = {
+  //     id: idReply,
+  //     content: content,
+  //     createdAt: "now",
+  //     replyingTo: datas.comments[index].user.username,
+  //     score: 0,
+  //     user: datas.currentUser,
+  //   }
+  //   if(datas.comments[index].replies){
+  //     setDatas({
+  //       ...datas,
+
+  //     })
+  //   }
+  //   console.log(newReply)
+  // }
   return (
     <div className='flex flex-col gap-4 lg:gap-6 duration-300'>
       <div className='bg-off-white p-7 lg:p-12 rounded-md grid grid-cols-1 lg:grid-cols-9 gap-4 lg:gap-6'>
@@ -107,7 +108,7 @@ const Comment = ({ username, avatar, createAt, score, content, id }: commentProp
         </div>
         {openModal && <ConfirmModal setModalOpen={setOpenModal} handleClick={onDelete} />}
       </div>
-      {isReply && <ReplyForm handleOnSubmit={addReply} id={id} />}
+      {isReply && <ReplyForm setIsReply={setIsReply} id={id} />}
     </div>
   )
 }

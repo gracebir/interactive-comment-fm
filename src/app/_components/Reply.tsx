@@ -27,33 +27,18 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
     } as DataType)
   }
 
-  const onUpdate = (comment: string, id: number) => {
-    console.log("commment reply", id)
-    const newsComment = updateReply(datas.comments, comment, id)
-    setDatas({
-      currentUser: datas.currentUser,
-      comments: newsComment
-    } as DataType)
-    setIsEdit(false)
-  }
-
-  const addReply = (content: string, id: number) => {
-    const index = datas.comments.findIndex(item => item.id === id)
-    const idReply = (Math.floor(Math.random() * (1000 - 20 + 1)) + 20)
-    const newReply = {
-      id: idReply,
-      content: content,
-      createdAt: "now",
-      replyingTo: datas.comments[index].user.username,
-      score: 0,
-      user: {
-        image: {
-          png: "png url",
-          webp: "image url"
-        },
-        username: "current"
-      },
+  const onUpdate = (comment: string, idRepl: number) => {
+    if(datas.comments){
+      const newsComment = updateReply(datas.comments, comment, idRepl)
+      console.log(newsComment)
     }
+    
+    // console.log(newsComment, "<<<<<<<new com", idRepl)
+    // setDatas({
+    //   currentUser: datas.currentUser,
+    //   comments: newsComment
+    // } as DataType)
+    // setIsEdit(false)
   }
 
   return (
@@ -113,7 +98,7 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
         </div>
         {openModal && (<ConfirmModal handleClick={onDelete} setModalOpen={setOpenModal} />)}
       </div >
-      {isReply && <ReplyForm handleOnSubmit={addReply} id={id} />}
+      {isReply && <ReplyForm setIsReply={setIsReply} id={id} />}
     </div>
   )
 }

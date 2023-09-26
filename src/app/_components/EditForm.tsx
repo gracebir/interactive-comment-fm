@@ -12,8 +12,11 @@ const EditForm = ({value, id, handleOnSubmit}: EditFormProp) => {
         },
         validateOnBlur: true,
         onSubmit: (value) => {
+          console.log(value.comment, id)
           handleOnSubmit(value.comment, id)
+          console.log(value.comment)
         }
+        
     })
   return (
     <form onSubmit={handleSubmit} className='flex flex-col items-end gap-4 bg-off-white rounded-lg'>
