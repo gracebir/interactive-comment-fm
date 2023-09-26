@@ -135,3 +135,8 @@ export type comfirmProps = {
     setModalOpen: Dispatch<SetStateAction<boolean>>
     handleClick: () => void
 }
+
+export type ReplyFormProps = {
+    handleOnSubmit: (content: string, id: number) => void,
+    id: number
+}
