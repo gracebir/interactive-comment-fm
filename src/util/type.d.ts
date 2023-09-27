@@ -41,10 +41,27 @@ export type ReplyProps = {
     createdAt: string
     score: number
     content: string
+    idcomment: number
+}
+
+export type ReplyTypes = {
+    id: number
+    user: {
+        image: {
+            png: string,
+            webp: string
+        },
+        username: string
+    }
+    replyingTo: string
+    createdAt: string
+    score: number
+    content: string
 }
 
 export type ReplyResponseProps = {
-    replies: Array<ReplyProps>
+    replies: Array<ReplyTypes>
+    idComment: number
 }
 
 export type DataType = {
@@ -68,7 +85,7 @@ export type DataType = {
                 },
                 username: string
             },
-            replies: Array<ReplyProps>
+            replies: Array<ReplyTypes>
         }
     ]
 }
@@ -85,7 +102,7 @@ export type NewCommentTypes = {
         }
         username: string
     },
-    replies: Array<ReplyProps>
+    replies: Array<ReplyTypes>
 }
 
 export type AppContextType = {
@@ -128,7 +145,7 @@ export type CommentData = {
         },
         username: string
     },
-    replies: Array<ReplyProps>
+    replies: Array<ReplyTypes>
 }
 
 export type comfirmProps = {
