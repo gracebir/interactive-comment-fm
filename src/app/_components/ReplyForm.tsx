@@ -4,7 +4,8 @@ import Image from 'next/image'
 import Button from './elements/Button'
 import { AppContext } from '../_context/DataProvider'
 import { useFormik } from 'formik'
-import { ReplyFormProps, ReplyProps } from '@/util/type'
+import { ReplyFormProps, ReplyTypes } from '@/util/type'
+import { splitContent } from '@/util/utils'
 
 const ReplyForm = ({ setIsReply, id }: ReplyFormProps) => {
     const { datas, setDatas } = useContext(AppContext)
@@ -14,36 +15,36 @@ const ReplyForm = ({ setIsReply, id }: ReplyFormProps) => {
         },
         validateOnBlur: true,
         onSubmit: (value) => {
+            const [replyTo, content] = splitContent(value.comment)
             const index = datas.comments.findIndex(item => item.id === id)
             const idReply = (Math.floor(Math.random() * (1000 - 20 + 1)) + 20)
-            const newReply: ReplyProps = {
+            const newReply: ReplyTypes = {
                 id: idReply,
-                content: value.comment,
+                content: content,
                 createdAt: "now",
-                replyingTo: datas.comments[index].user.username,
+                replyingTo: replyTo ? replyTo : datas.comments[index].user.username,
                 score: 0,
                 user: datas.currentUser,
             }
-            
+
             if (datas.comments[index].replies) {
                 datas.comments[index].replies = [
                     ...datas.comments[index].replies,
                     newReply
                 ]
                 setDatas({
-                   currentUser: datas.currentUser,
-                   comments: datas.comments  
+                    currentUser: datas.currentUser,
+                    comments: datas.comments
                 })
             } else {
                 datas.comments[index].replies = [
                     newReply
                 ]
                 setDatas({
-                   currentUser: datas.currentUser,
-                   comments: datas.comments  
+                    currentUser: datas.currentUser,
+                    comments: datas.comments
                 })
             }
-            console.log(newReply, id)
             resetForm()
             setIsReply(false)
         }

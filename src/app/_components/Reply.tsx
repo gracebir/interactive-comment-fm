@@ -11,7 +11,7 @@ import { AppContext } from '../_context/DataProvider'
 import ConfirmModal from './ConfirmModal'
 import ReplyForm from './ReplyForm'
 
-const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) => {
+const Reply = ({ score, user, content, createdAt, replyingTo, id, idcomment }: ReplyProps) => {
   const { datas, setDatas } = useContext(AppContext);
   const [openModal, setOpenModal] = useState(false)
   const [isReply, setIsReply] = useState(false)
@@ -20,7 +20,7 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
   const [scoreValue, setScoreValue] = useState(score)
 
   const onDelete = () => {
-    const newComment = deleteReply(datas.comments, id)
+    const newComment = deleteReply(datas.comments, idcomment, id)
     setDatas({
       currentUser: datas.currentUser,
       comments: newComment
@@ -28,17 +28,14 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
   }
 
   const onUpdate = (comment: string, idRepl: number) => {
-    if(datas.comments){
-      const newsComment = updateReply(datas.comments, comment, idRepl)
-      console.log(newsComment)
+    if (datas.comments) {
+      const newsComment = updateReply(datas.comments, comment, idcomment, idRepl)
+      setDatas({
+        currentUser: datas.currentUser,
+        comments: newsComment
+      } as DataType)
+      setIsEdit(false)
     }
-    
-    // console.log(newsComment, "<<<<<<<new com", idRepl)
-    // setDatas({
-    //   currentUser: datas.currentUser,
-    //   comments: newsComment
-    // } as DataType)
-    // setIsEdit(false)
   }
 
   return (
@@ -98,7 +95,7 @@ const Reply = ({ score, user, content, createdAt, replyingTo, id }: ReplyProps) 
         </div>
         {openModal && (<ConfirmModal handleClick={onDelete} setModalOpen={setOpenModal} />)}
       </div >
-      {isReply && <ReplyForm setIsReply={setIsReply} id={id} />}
+      {isReply && <ReplyForm setIsReply={setIsReply} id={idcomment} />}
     </div>
   )
 }
