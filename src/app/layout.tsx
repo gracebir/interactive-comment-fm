@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Rubik } from 'next/font/google'
+import { DataProdiver } from './_context/DataProvider'
 
 const rubik = Rubik({ subsets: ['latin'], weight: ["400", "500","700"] })
 
@@ -16,7 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} className={rubik.className}>{children}</body>
+      <body suppressHydrationWarning={true} className={rubik.className}>
+        <DataProdiver>
+        {children}
+        </DataProdiver>
+      </body>
     </html>
   )
 }
