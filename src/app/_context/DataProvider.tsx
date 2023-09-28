@@ -1,10 +1,10 @@
 'use client'
 
 import { AppContextType, DataType } from '@/util/type'
-import { createContext, useState } from 'react'
+import {  Dispatch, SetStateAction, createContext, useState } from 'react'
 
 const initialState: AppContextType = {
-    setDatas: ({} as DataType),
+    setDatas: {} as Dispatch<SetStateAction<DataType>>,
     datas: {} as DataType
 }
 
