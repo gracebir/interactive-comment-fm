@@ -2,7 +2,7 @@ import { DataType } from '@/util/type';
 import Comments from './_components/Comments'
 
 async function fetchData() {
-  const response = await fetch('http://localhost:3000/api/comment');
+  const response = await fetch('http://127.0.0.1:3000/api/comment');
   const data:DataType = await response.json()
   return data
 }
